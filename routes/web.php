@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::group(['prefix' => 'operator', 'as' => 'operator.'], function () {
         Route::get('/', 'OperatorController@index')->name('index');
         Route::post('/store', 'OperatorController@store')->name('store');
+        Route::delete('/destroy', 'OperatorController@destroy')->name('destroy');
     });
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {

@@ -15,6 +15,16 @@ class OperatorController extends Controller
     {
         if (request()->ajax()) {
             return DataTables::of(Admin::get())->addIndexColumn()
+            ->addColumn('action', function($model) {
+                return '
+                    <a href="" class="btn btn-sm btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                ';
+            })
             ->toJson();
         }
     
@@ -63,6 +73,16 @@ class OperatorController extends Controller
 
         return $store ? redirect()->route('admin.operator.index')->with('status', 'Data saved statusfully')
         : redirect()->back()->with('danger', 'Failed to save');
+    }
+
+    public function destroy(Request $request)
+    {
+        $find = Admin::findOrFail($request->id);
+
+        $destroy = $find->delete();
+
+        return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
+            response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');;
     }
     
 }
