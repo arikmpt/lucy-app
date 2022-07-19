@@ -57,11 +57,11 @@ class OperatorController extends Controller
         $admin = new Admin;
         $admin->name= $request->name;
         $admin->email= $request->email;
-        $admin->password = $request->password;
+        $admin->password = bcrypt($request->password);
 
         $store=$admin->save();
 
-        return $store ? redirect('admin/operator')->with('status', 'Data saved statusfully')
+        return $store ? redirect()->route('admin.operator.index')->with('status', 'Data saved statusfully')
         : redirect()->back()->with('danger', 'Failed to save');
     }
     
