@@ -22,6 +22,8 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
             Route::get('/', 'ProfileController@index')->name('index');
+            Route::put('/update', 'ProfileController@update')->name('update');
+            Route::put('/change-password', 'ProfileController@changePassword')->name('change_password');
         });
     
         Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
@@ -79,6 +81,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
             Route::get('/', 'ProfileController@index')->name('index');
+            Route::put('/update', 'ProfileController@update')->name('update');
+            Route::put('/change-password', 'ProfileController@changePassword')->name('change_password');
         });
     });
 });

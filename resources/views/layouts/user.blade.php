@@ -115,19 +115,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </div>
                     @endif
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     @if (session('danger'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger" role="alert">
                             {{ session('danger') }}
-                        </div>
-                    @endif
-                    @if (session('danger-with-link'))
-                        <div class="alert alert-danger">
-                            {!! session('danger-with-link') !!}
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
                         </div>
                     @endif
 
