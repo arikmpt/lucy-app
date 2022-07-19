@@ -35,8 +35,6 @@ class SchoolMajorController extends Controller
                 'width' => '24px'
             ],
             ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
-            ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
-            ['data' => 'phone', 'name' => 'phone', 'title' => 'Phone'],
             [
                 'data' => 'action','title' => 'Action',
                 'width' => '170px','class' => 'text-center',
@@ -49,5 +47,35 @@ class SchoolMajorController extends Controller
         ->with([
             'html' => $html
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $major = new SchoolMajor;
+        $major->name= $request->name;
+
+        $store=$major->save();
+
+        return $store ? redirect()->route('admin.school.major.index')->with('status', 'Data saved statusfully')
+        : redirect()->back()->with('danger', 'Failed to save');
+    }
+    public function destroy(Request $request)
+    {
+        $find = SchoolMajor::findOrFail($request->id);
+
+        $destroy = $find->delete();
+
+        return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
+            response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
     }
 }
