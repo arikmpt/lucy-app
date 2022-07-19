@@ -17,7 +17,7 @@ class SchoolDistrictController extends Controller
             return DataTables::of(SchoolCluster::get())->addIndexColumn()
             ->addColumn('action', function($model) {
                 return '
-                    <a href="" class="btn btn-sm btn-primary">
+                    <a href="'.route('admin.school.district.edit', $model->id).'" class="btn btn-sm btn-primary">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <button type="button" class="btn btn-sm btn-danger btn-delete">
@@ -81,5 +81,35 @@ class SchoolDistrictController extends Controller
         return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
             response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
     }
+    public function edit($id)
+    {
+        $district = SchoolCluster::where('id', $id)->first();
+        return view('pages.admin.district.edit')->with([
+            "district" => $district,
+        ]);
+    }
+    
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'districts' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $district = SchoolCluster::where('id', $request->id)->FirstOrFail();
+        
+        $district->name= $request->name;
+        $district->districts= $request->districts;
+        
+        $store=$district->save();
+
+        return $store ? redirect()->route('admin.school.district.index')->with('status', 'Data saved statusfully')
+        : redirect()->back()->with('danger', 'Failed to save');
+    }
 }
