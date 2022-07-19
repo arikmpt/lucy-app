@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use DataTables;
+use Validator;
 use App\Models\Admin;
 
 class OperatorController extends Controller

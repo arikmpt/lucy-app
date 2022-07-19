@@ -38,15 +38,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Nama</label>
-                        {!! Form::text('name', null, ['class' => 'form-control', 'require']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control','required']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                        {!! Form::email('email', null, ['class' => 'form-control','required']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        {!! Form::password('password', ['class' => 'form-control','required']) !!}
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
