@@ -27,9 +27,9 @@
             <div class="card-body">
                 <p class="login-box-msg">Silakan Masuk Untuk Melanjutkan</p>
 
-                <form action="#" method="post">
+                {!! Form::open(['route' => 'user.auth.login']) !!}
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        {!! Form::email('email', null, ['class' => 'form-control', 'required','placeholder' => 'Email']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        {!! Form::password('password', ['class' => 'form-control', 'required','placeholder' => 'Password']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -47,12 +47,11 @@
                     <div class="row">
                         <!-- /.col -->
                         <div class="col-4">
-                            {{-- <button type="submit" class="btn btn-primary btn-block">Sign In</button> --}}
-                            <a href="{{ route('user.biodata.index') }}" class="btn btn-primary btn-block">Masuk</a>
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
                         <!-- /.col -->
                     </div>
-                </form>
+                {!! Form::close() !!}
                 <br>
                 <p class="mb-0 mt-15">
                     <a href="{{ route('user.auth.register.index') }}" class="text-center">Pendaftaran Mahasiswa Baru</a>

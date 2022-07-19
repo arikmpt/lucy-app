@@ -16,13 +16,21 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
     Route::get('/', 'AuthController@indexLogin')->name('auth.index');
     Route::get('/register', 'AuthController@indexRegister')->name('auth.register.index');
+    Route::post('/register/store', 'AuthController@register')->name('auth.register.store');
+    Route::post('/login', 'AuthController@login')->name('auth.login');
 
-    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('/', 'ProfileController@index')->name('index');
-    });
+    Route::group(['middleware' => 'auth'], function () {
+        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+            Route::get('/', 'ProfileController@index')->name('index');
+        });
+    
+        Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
+            Route::get('/', 'BiodataController@index')->name('index');
+        });
 
-    Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
-        Route::get('/', 'BiodataController@index')->name('index');
+        Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
+            Route::get('/logout', 'AuthController@logout')->name('logout');
+        });
     });
 });
 

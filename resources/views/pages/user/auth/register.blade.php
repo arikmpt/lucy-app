@@ -27,9 +27,9 @@
             <div class="card-body">
                 <p class="login-box-msg">Silakan Masuk Untuk Melanjutkan</p>
 
-                <form action="#" method="post">
+                {!! Form::open(['route' => 'user.auth.register.store']) !!}
                     <div class="input-group mb-3">
-                        <input type="name" class="form-control" placeholder="Name">
+                        {!! Form::text('name', null, ['class' => 'form-control', 'required', 'placeholder' => 'Nama Lengkap']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        {!! Form::email('email', null, ['class' => 'form-control', 'required','placeholder' => 'Email']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Phone">
+                        {!! Form::text('phone', null, ['class' => 'form-control', 'required', 'placeholder' => 'Nomor Hp Kamu']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        {!! Form::password('password', ['class' => 'form-control', 'required','placeholder' => 'Password']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -67,7 +67,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                </form>
+                {!! Form::close() !!}
                 <br>
                 <p class="mb-0 mt-15">
                     <a href="{{ route('user.auth.index') }}" class="text-center">Sudah Terdaftar? Silakan Login</a>
