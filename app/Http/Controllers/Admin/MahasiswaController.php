@@ -38,4 +38,9 @@ class MahasiswaController extends Controller
             'html' => $html
         ]);
     }
+
+    public function new()
+    {
+        return view('pages.admin.mahasiswa.new');
+    }
 }

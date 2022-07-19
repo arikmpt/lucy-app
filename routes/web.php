@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     Route::group(['prefix' => 'mahasiswa', 'as' => 'mahasiswa.'], function () {
         Route::get('/', 'MahasiswaController@index')->name('index');
+        Route::get('/new', 'MahasiswaController@new')->name('new');
     });
 
     Route::group(['prefix' => 'school', 'as' => 'school.'], function () {

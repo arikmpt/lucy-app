@@ -16,6 +16,7 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                             Upload Data
                         </button>
+                        <a href="{{ route('admin.mahasiswa.new') }}" class="btn btn-success">Tambah Baru</a>
                     </div>
                 </div>
                 <div class="card-body">
