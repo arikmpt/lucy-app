@@ -12,6 +12,6 @@ class SchoolMajor extends Model
     protected $table = 'school_majors';
 
     protected $fillable = [
-        'name','districts'
+        'name'
     ];
 }
