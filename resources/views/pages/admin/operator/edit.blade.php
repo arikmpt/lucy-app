@@ -8,31 +8,32 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Data Operator Edit</h5>
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => 'admin.operator.update']) !!}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Nama</label>
-                        {!! Form::text('name', null, ['class' => 'form-control','required']) !!}
+                {!! Form::open(['route' => 'admin.operator.update']) !!}
+                    {!! Form::hidden('id', $admin->id, ['required']) !!}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Nama</label>
+                            {!! Form::text('name', $admin->name, ['class' => 'form-control','required']) !!}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            {!! Form::email('email', $admin->email, ['class' => 'form-control','required']) !!}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            {!! Form::password('password', ['class' => 'form-control','required']) !!}
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Email</label>
-                        {!! Form::email('email', null, ['class' => 'form-control','required']) !!}
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        {!! Form::password('password', ['class' => 'form-control','required']) !!}
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
                 {!! Form::close() !!}
                 </div>
             </div>
