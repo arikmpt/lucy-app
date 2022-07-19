@@ -6,13 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use DataTables;
+use Validator;
+use App\Models\SchoolMajor;
 
 class SchoolMajorController extends Controller
 {
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            return DataTables::of([])->addIndexColumn()
+            return DataTables::of(SchoolMajor::get())->addIndexColumn()
+            ->addColumn('action', function($model) {
+                return '
+                    <a href="" class="btn btn-sm btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                ';
+            })
             ->toJson();
         }
     

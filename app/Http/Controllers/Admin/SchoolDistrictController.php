@@ -15,6 +15,16 @@ class SchoolDistrictController extends Controller
     {
         if (request()->ajax()) {
             return DataTables::of(SchoolCluster::get())->addIndexColumn()
+            ->addColumn('action', function($model) {
+                return '
+                    <a href="" class="btn btn-sm btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                ';
+            })
             ->toJson();
         }
     
@@ -39,6 +49,7 @@ class SchoolDistrictController extends Controller
             'html' => $html
         ]);
     }
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -61,4 +72,14 @@ class SchoolDistrictController extends Controller
         return $store ? redirect()->route('admin.school.district.index')->with('status', 'Data saved statusfully')
         : redirect()->back()->with('danger', 'Failed to save');
     }
+    public function destroy(Request $request)
+    {
+        $find = SchoolCluster::findOrFail($request->id);
+
+        $destroy = $find->delete();
+
+        return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
+            response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
+    }
+
 }
