@@ -148,16 +148,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </div>
                     @endif
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if (session('danger'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('danger') }}
-                        </div>
-                    @endif
+                    <div class="notification">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        @if (session('danger'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('danger') }}
+                            </div>
+                        @endif
+                    </div>
+
                     @yield('content')
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -188,7 +191,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('dist/js/toastr.min.js') }}"></script>
     <script src="{{ asset('dist/js/scripts.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    
+    <script>
+        $(document).ready(function() {
+            setInterval(function(){ 
+                $('.notification').css("display", "none");
+            }, 5000);
+        });
+    </script>
     @stack('scripts')
 </body>
 
