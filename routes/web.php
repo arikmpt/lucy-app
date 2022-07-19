@@ -85,6 +85,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::get('/edit/{id}', 'OperatorController@edit')->name('edit');
             Route::post('/update', 'OperatorController@update')->name('update');
         });
+
+        Route::group(['prefix' => 'prodi', 'as' => 'prodi.'], function () {
+            Route::get('/', 'ProdiController@index')->name('index');
+            Route::post('/store', 'ProdiController@store')->name('store');
+            Route::delete('/destroy', 'ProdiController@destroy')->name('destroy');
+            Route::get('/edit/{id}', 'ProdiController@edit')->name('edit');
+            Route::post('/update', 'ProdiController@update')->name('update');
+        });
     
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
             Route::get('/', 'ProfileController@index')->name('index');
