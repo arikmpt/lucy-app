@@ -8,6 +8,8 @@
     </ol>
 @endsection
 @section('content')
+    {!! Form::open(['route' => 'admin.mahasiswa.update']) !!}
+    {!! Form::hidden('id', $user->id, []) !!}
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -19,34 +21,34 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                {!! Form::text('name', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('name', $user->name, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">No Hp</label>
-                                {!! Form::text('phone', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('phone', $user->phone, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                {!! Form::email('email', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::email('email', $user->email, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label>
-                                {!! Form::select('gender', ['L' => 'Laki - Laki', 'P' => 'Perempuan'], null, 
+                                {!! Form::select('gender', ['L' => 'Laki - Laki', 'P' => 'Perempuan'], $user->gender, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tanggal Lahir</label>
-                                {!! Form::text('date_of_birth', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Tempat Lahir</label>
-                                {!! Form::text('place_of_birth', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('place_of_birth', $user->place_of_birth, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan Yang Dipilih</label>
-                                {!! Form::select('major', [], null, 
+                                {!! Form::select('major', [], $user->major, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
@@ -67,30 +69,30 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                {!! Form::text('school_name', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('school_name', $user->school->name, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat</label>
-                                {!! Form::textarea('school_address', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::textarea('school_address', $user->school->address, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan</label>
-                                {!! Form::select('school_major', [], null, 
+                                {!! Form::select('school_major', $schoolMajors, $user->school->major, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tahun Tamat</label>
-                                {!! Form::text('school_year_graduate', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('school_year_graduate', $user->school->year_graduate, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Nilai Terakhir</label>
-                                {!! Form::textarea('school_score', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('school_score', $user->school->score, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Wilayah</label>
-                                {!! Form::select('school_cluster', [], null, 
+                                {!! Form::select('school_cluster', $schoolClusters, $user->school->cluster, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
@@ -111,29 +113,29 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Ayah</label>
-                                {!! Form::text('father_name', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('father_name', $user->father->name, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Pekerjaan Ayah</label>
-                                {!! Form::text('father_job', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('father_job', $user->father->job, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat Ayah</label>
-                                {!! Form::textarea('father_address', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::textarea('father_address', $user->father->address, ['class' => 'form-control','required']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Ibu</label>
-                                {!! Form::text('mother_name', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('mother_name', $user->mother->name, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Pekerjaan Ibu</label>
-                                {!! Form::text('mother_job', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('mother_job', $user->mother->job, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat Ibu</label>
-                                {!! Form::textarea('mother_address', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::textarea('mother_address', $user->mother->address, ['class' => 'form-control','required']) !!}
                             </div>
                         </div>
                     </div>
@@ -152,6 +154,7 @@
             
         </div>
     </div>
+    {!! Form::close() !!}
 
 @endsection
 @push('scripts')

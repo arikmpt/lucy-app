@@ -8,6 +8,7 @@
     </ol>
 @endsection
 @section('content')
+    {!! Form::open(['route' => 'admin.mahasiswa.store']) !!}
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -75,7 +76,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan</label>
-                                {!! Form::select('school_major', [], null, 
+                                {!! Form::select('school_major', $schoolMajors, null, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
@@ -86,11 +87,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Nilai Terakhir</label>
-                                {!! Form::textarea('school_score', null, ['class' => 'form-control','required']) !!}
+                                {!! Form::text('school_score', null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Wilayah</label>
-                                {!! Form::select('school_cluster', [], null, 
+                                {!! Form::select('school_cluster', $schoolClusters, null, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
@@ -152,7 +153,7 @@
             
         </div>
     </div>
-
+    {!! Form::close() !!}
 @endsection
 @push('scripts')
     
