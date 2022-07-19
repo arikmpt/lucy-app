@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use DataTables;
+use Validator;
 use App\Models\SchoolCluster;
 
 class SchoolDistrictController extends Controller
@@ -13,7 +14,7 @@ class SchoolDistrictController extends Controller
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            return DataTables::of([])->addIndexColumn()
+            return DataTables::of(SchoolCluster::get())->addIndexColumn()
             ->toJson();
         }
     
@@ -24,8 +25,7 @@ class SchoolDistrictController extends Controller
                 'width' => '24px'
             ],
             ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
-            ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
-            ['data' => 'phone', 'name' => 'phone', 'title' => 'Phone'],
+            ['data' => 'districts', 'name' => 'email', 'title' => 'Wilayah'],
             [
                 'data' => 'action','title' => 'Action',
                 'width' => '170px','class' => 'text-center',
@@ -38,5 +38,27 @@ class SchoolDistrictController extends Controller
         ->with([
             'html' => $html
         ]);
+    }
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'districts' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $district = new SchoolCluster;
+        $district->name= $request->name;
+        $district->districts= $request->districts;
+
+        $store=$district->save();
+
+        return $store ? redirect()->route('admin.school.district.index')->with('status', 'Data saved statusfully')
+        : redirect()->back()->with('danger', 'Failed to save');
     }
 }

@@ -44,9 +44,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
         Route::group(['prefix' => 'district', 'as' => 'district.'], function () {
             Route::get('/', 'SchoolDistrictController@index')->name('index');
+            Route::post('/store', 'SchoolDistrictController@store')->name('store');
         });
         Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
             Route::get('/', 'SchoolMajorController@index')->name('index');
+            Route::post('/store', 'SchoolMajorController@store')->name('store');
         });
     });
 
