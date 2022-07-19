@@ -16,15 +16,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Name:</label>
-                        <p>-</p>
+                        <p>{{ Auth::guard('admin')->user()->name }}</p>
                     </div>
                     <div class="form-group">
                         <label for="">Email:</label>
-                        <p>-</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Phone:</label>
-                        <p>-</p>
+                        <p>{{ Auth::guard('admin')->user()->email }}</p>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -42,6 +38,7 @@
     <div class="modal fade" id="modal-default" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                {!! Form::open(['route' => 'admin.profile.update', 'method' => 'PUT']) !!}
                 <div class="modal-header">
                     <h4 class="modal-title">Sunting Profile</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -51,21 +48,18 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Nama</label>
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('name', Auth::guard('admin')->user()->name, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        {!! Form::email('email', null, ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                        <label for="">Phone No</label>
-                        {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                        <p>{{ Auth::guard('admin')->user()->email }}</p>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>        
     </div>
