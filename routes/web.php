@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::group(['prefix' => 'district', 'as' => 'district.'], function () {
             Route::get('/', 'SchoolDistrictController@index')->name('index');
             Route::post('/store', 'SchoolDistrictController@store')->name('store');
+            Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
         });
         Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
             Route::get('/', 'SchoolMajorController@index')->name('index');
