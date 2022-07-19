@@ -63,11 +63,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
                 Route::get('/', 'SchoolDistrictController@index')->name('index');
                 Route::post('/store', 'SchoolDistrictController@store')->name('store');
                 Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+                Route::get('/edit/{id}', 'SchoolDistrictController@edit')->name('edit');
+                Route::post('/update', 'SchoolDistrictController@update')->name('update');
             });
             Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
                 Route::get('/', 'SchoolMajorController@index')->name('index');
                 Route::post('/store', 'SchoolMajorController@store')->name('store');
-                Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+                Route::delete('/destroy', 'SchoolMajorController@destroy')->name('destroy');
+                Route::get('/edit/{id}', 'SchoolMajorController@edit')->name('edit');
+                Route::post('/update', 'SchoolMajorController@update')->name('update');
             });
         });
     
