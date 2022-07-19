@@ -56,6 +56,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::group(['prefix' => 'mahasiswa', 'as' => 'mahasiswa.'], function () {
             Route::get('/', 'MahasiswaController@index')->name('index');
             Route::get('/new', 'MahasiswaController@new')->name('new');
+            Route::get('/edit/{id}', 'MahasiswaController@edit')->name('edit');
+            Route::post('/store', 'MahasiswaController@store')->name('store');
+            Route::post('/update', 'MahasiswaController@update')->name('update');
         });
     
         Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
