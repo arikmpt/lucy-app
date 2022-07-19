@@ -17,7 +17,7 @@ class SchoolMajorController extends Controller
             return DataTables::of(SchoolMajor::get())->addIndexColumn()
             ->addColumn('action', function($model) {
                 return '
-                    <a href="" class="btn btn-sm btn-primary">
+                    <a href="'.route('admin.school.major.edit', $model->id).'" class="btn btn-sm btn-primary">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <button type="button" class="btn btn-sm btn-danger btn-delete">
@@ -77,5 +77,35 @@ class SchoolMajorController extends Controller
 
         return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
             response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
+    }
+
+    public function edit($id)
+    {
+        $major = SchoolMajor::where('id', $id)->first();
+        return view('pages.admin.major.edit')->with([
+            "major" => $major,
+        ]);
+    }
+    
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $major = SchoolMajor::where('id', $request->id)->FirstOrFail();
+        
+        $major->name= $request->name;
+        
+        $store=$major->save();
+
+        return $store ? redirect()->route('admin.school.major.index')->with('status', 'Data saved statusfully')
+        : redirect()->back()->with('danger', 'Failed to save');
     }
 }
