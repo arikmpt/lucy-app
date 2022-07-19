@@ -67,6 +67,7 @@
     <div class="modal fade" id="modal-password" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                {!! Form::open(['route' => 'admin.profile.change_password', 'method' => 'PUT']) !!}
                 <div class="modal-header">
                     <h4 class="modal-title">Ganti Password</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,21 +77,22 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Password Lama</label>
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        {!! Form::password('old_password', ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Password Baru</label>
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        {!! Form::password('new_password', ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Konfirmas Password</label>
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        {!! Form::password('confirm_password', ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>        
     </div>
