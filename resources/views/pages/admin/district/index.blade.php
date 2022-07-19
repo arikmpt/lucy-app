@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Wilayah</label>
-                        {!! Form::text('districts', null, ['class' => 'form-control','required']) !!}
+                        {!! Form::textarea('districts', null, ['class' => 'form-control', 'placeholder' => 'Payakumbuh, Bukittingi, Padang','required']) !!}
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
