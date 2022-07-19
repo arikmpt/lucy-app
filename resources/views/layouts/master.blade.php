@@ -139,15 +139,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
                     @endif
                     @if (session('danger'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('danger') }}
-                    </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('danger') }}
+                        </div>
                     @endif
                     @yield('content')
                     <!-- /.row -->
