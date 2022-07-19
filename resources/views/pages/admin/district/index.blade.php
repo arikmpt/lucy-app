@@ -1,9 +1,9 @@
 @extends('layouts.master')
-@section('page_title', 'Data Operator')
+@section('page_title', 'Data Wilayah')
 @section('breadcrumb')
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Data Operator</li>
+        <li class="breadcrumb-item active">Data Wilayah</li>
     </ol>
 @endsection
 @section('content')
@@ -11,10 +11,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Data Operator</h5>
+                    <h5 class="card-title">Data Wilayah</h5>
                     <div class="text-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                            Tambah Operator
+                            Tambah Wilayah
                         </button>
                     </div>
                 </div>

@@ -41,8 +41,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/', 'MahasiswaController@index')->name('index');
     });
 
+    Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
+        Route::group(['prefix' => 'district', 'as' => 'district.'], function () {
+            Route::get('/', 'SchoolDistrictController@index')->name('index');
+        });
+        Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
+            Route::get('/', 'SchoolMajorController@index')->name('index');
+        });
+    });
+
     Route::group(['prefix' => 'operator', 'as' => 'operator.'], function () {
         Route::get('/', 'OperatorController@index')->name('index');
+        Route::get('/store', 'OperatorController@store')->name('store');
     });
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {

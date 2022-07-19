@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use DataTables;
 
-class OperatorController extends Controller
+class SchoolDistrictController extends Controller
 {
     public function index(Builder $builder)
     {
@@ -33,10 +33,9 @@ class OperatorController extends Controller
             ]
         ])->minifiedAjax()->responsive()->autoWidth(false);
 
-        return view('pages.admin.operator.index')
+        return view('pages.admin.district.index')
         ->with([
             'html' => $html
         ]);
     }
-    
 }
