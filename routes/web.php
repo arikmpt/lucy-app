@@ -39,37 +39,44 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
         Route::get('/login', 'AuthController@indexLogin')->name('index');
+        Route::post('/login/process', 'AuthController@login')->name('login');
     });
 
-    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
-        Route::get('/', 'DashboardController@index')->name('index');
-    });
-
-    Route::group(['prefix' => 'mahasiswa', 'as' => 'mahasiswa.'], function () {
-        Route::get('/', 'MahasiswaController@index')->name('index');
-        Route::get('/new', 'MahasiswaController@new')->name('new');
-    });
-
-    Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
-        Route::group(['prefix' => 'district', 'as' => 'district.'], function () {
-            Route::get('/', 'SchoolDistrictController@index')->name('index');
-            Route::post('/store', 'SchoolDistrictController@store')->name('store');
-            Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+    Route::group(['middleware' => 'auth:admin'], function () {
+        Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
+            Route::get('/logout', 'AuthController@logout')->name('logout');
         });
-        Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
-            Route::get('/', 'SchoolMajorController@index')->name('index');
-            Route::post('/store', 'SchoolMajorController@store')->name('store');
-            Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+    
+        Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+            Route::get('/', 'DashboardController@index')->name('index');
         });
-    });
-
-    Route::group(['prefix' => 'operator', 'as' => 'operator.'], function () {
-        Route::get('/', 'OperatorController@index')->name('index');
-        Route::post('/store', 'OperatorController@store')->name('store');
-        Route::delete('/destroy', 'OperatorController@destroy')->name('destroy');
-    });
-
-    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('/', 'ProfileController@index')->name('index');
+    
+        Route::group(['prefix' => 'mahasiswa', 'as' => 'mahasiswa.'], function () {
+            Route::get('/', 'MahasiswaController@index')->name('index');
+            Route::get('/new', 'MahasiswaController@new')->name('new');
+        });
+    
+        Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
+            Route::group(['prefix' => 'district', 'as' => 'district.'], function () {
+                Route::get('/', 'SchoolDistrictController@index')->name('index');
+                Route::post('/store', 'SchoolDistrictController@store')->name('store');
+                Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+            });
+            Route::group(['prefix' => 'major', 'as' => 'major.'], function () {
+                Route::get('/', 'SchoolMajorController@index')->name('index');
+                Route::post('/store', 'SchoolMajorController@store')->name('store');
+                Route::delete('/destroy', 'SchoolDistrictController@destroy')->name('destroy');
+            });
+        });
+    
+        Route::group(['prefix' => 'operator', 'as' => 'operator.'], function () {
+            Route::get('/', 'OperatorController@index')->name('index');
+            Route::post('/store', 'OperatorController@store')->name('store');
+            Route::delete('/destroy', 'OperatorController@destroy')->name('destroy');
+        });
+    
+        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+            Route::get('/', 'ProfileController@index')->name('index');
+        });
     });
 });

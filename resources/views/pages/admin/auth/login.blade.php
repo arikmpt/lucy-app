@@ -22,14 +22,14 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                STTP Online System
+                STTP Online System ( Admin Only )
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Silakan Masuk Untuk Melanjutkan</p>
 
-                <form action="#" method="post">
+                {!! Form::open(['route' => 'admin.auth.login']) !!}
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        {!! Form::email('email', null, ['class' => 'form-control', 'required','placeholder' => 'Email']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        {!! Form::password('password', ['class' => 'form-control', 'required','placeholder' => 'Password']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -51,7 +51,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                </form>
+                {!! Form::close() !!}
 
                 {{-- <p class="mb-0">
                     <a href="register.html" class="text-center">Register a new membership</a>
