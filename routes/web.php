@@ -73,6 +73,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::get('/', 'OperatorController@index')->name('index');
             Route::post('/store', 'OperatorController@store')->name('store');
             Route::delete('/destroy', 'OperatorController@destroy')->name('destroy');
+            Route::get('/edit/{id}', 'OperatorController@edit')->name('edit');
+            Route::post('/update', 'OperatorController@update')->name('update');
         });
     
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {

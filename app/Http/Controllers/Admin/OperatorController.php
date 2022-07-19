@@ -17,7 +17,7 @@ class OperatorController extends Controller
             return DataTables::of(Admin::get())->addIndexColumn()
             ->addColumn('action', function($model) {
                 return '
-                    <a href="" class="btn btn-sm btn-primary">
+                    <a href="admin/operator/edit/" class="btn btn-sm btn-primary">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <button type="button" class="btn btn-sm btn-danger btn-delete">
@@ -83,6 +83,14 @@ class OperatorController extends Controller
 
         return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
             response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
+    }
+
+    public function edit($id)
+    {
+        $admin = Admin::where('id', $id)->first();
+        return view('pages.admin.operator.edit')->with([
+            "admin" => $admin,
+        ]);
     }
     
 }

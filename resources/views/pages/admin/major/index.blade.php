@@ -40,10 +40,6 @@
                         <label for="">Nama</label>
                         {!! Form::text('name', null, ['class' => 'form-control','required']) !!}
                     </div>
-                    <div class="form-group">
-                        <label for="">Wilayah</label>
-                        {!! Form::text('districts', null, ['class' => 'form-control','required']) !!}
-                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -56,4 +52,48 @@
 @endsection
 @push('scripts')
     {!! $html->scripts() !!}
+    <script>
+        $(document).ready(function() {
+    
+            $('table#dataTableBuilder tbody').on( 'click', 'td button', function (e) {
+                var mode = $(this).attr("data-mode");
+                var parent = $(this).parent().get( 0 );
+                var parent1 = $(parent).parent().get( 0 );
+                var row = $('#dataTableBuilder').DataTable().row(parent1);
+                var data = row.data();
+
+                if($(this).hasClass('btn-delete')) {
+                    Swal.fire({
+                        title: 'Apakah Anda Yakin Untuk Menghapus Data Ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yakin',
+                        cancelButtonText: 'Tidak'
+                    }).then((result) => {
+                        if (result.value) {
+                            const form = {
+                                id : data.id,
+                            }
+                            remove(form, "{{ route('admin.school.major.destroy') }}", "{{ csrf_token() }}")
+                            .then((res) => {
+                                success(res.message)
+                                $('#dataTableBuilder').DataTable().ajax.reload();
+                            })
+                            .catch((err) => {
+                                if(Array.isArray(err.responseJSON.message)){
+                                    err.responseJSON.message.forEach(function(v) {
+                                        error(v)
+                                    })
+                                } else {
+                                    error(err.responseJSON.message)
+                                }
+                                $('#dataTableBuilder').DataTable().ajax.reload();
+                            })
+                            
+                        }
+                    })
+                } 
+            })
+        })
+    </script>
 @endpush
