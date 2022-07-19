@@ -17,7 +17,7 @@ class OperatorController extends Controller
             return DataTables::of(Admin::get())->addIndexColumn()
             ->addColumn('action', function($model) {
                 return '
-                    <a href="admin/operator/edit/" class="btn btn-sm btn-primary">
+                    <a href="'.route('admin.operator.edit', $model->id).'" class="btn btn-sm btn-primary">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <button type="button" class="btn btn-sm btn-danger btn-delete">
@@ -93,4 +93,29 @@ class OperatorController extends Controller
         ]);
     }
     
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $admin = Admin::where('id', $request->id)->FirstOrFail();
+        
+        $admin->name= $request->name;
+        $admin->email= $request->email;
+        $admin->password = bcrypt($request->password);
+        
+        $store=$admin->save();
+
+        return $store ? redirect()->route('admin.operator.index')->with('status', 'Data saved statusfully')
+        : redirect()->back()->with('danger', 'Failed to save');
+    }
 }
