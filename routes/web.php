@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     Route::group(['prefix' => 'operator', 'as' => 'operator.'], function () {
         Route::get('/', 'OperatorController@index')->name('index');
-        Route::get('/store', 'OperatorController@store')->name('store');
+        Route::post('/store', 'OperatorController@store')->name('store');
     });
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {

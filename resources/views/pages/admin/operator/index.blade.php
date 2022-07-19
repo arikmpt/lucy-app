@@ -34,11 +34,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                {!! Form::open(['route' => 'admin.operator.store']) !!}
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'admin.operator.store']) !!}
                     <div class="form-group">
                         <label for="">Nama</label>
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control', 'require']) !!}
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
@@ -48,16 +48,12 @@
                         <label for="">Password</label>
                         {!! Form::password('password', ['class' => 'form-control']) !!}
                     </div>
-                    <div class="form-group">
-                        <label for="">Phone No</label>
-                        {!! Form::text('phone', null, ['class' => 'form-control']) !!}
-                    </div>
-                    {!! Form::close() !!}
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>        
     </div>
