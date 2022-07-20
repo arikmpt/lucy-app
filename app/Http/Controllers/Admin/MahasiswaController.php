@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\UserFather;
 use App\Models\UserMother;
 use App\Models\UserSchool;
+use App\Models\Prodi;
 use DB;
 use Validator;
 
@@ -51,11 +52,13 @@ class MahasiswaController extends Controller
     {
         $schoolMajors = SchoolMajor::pluck('name','name');
         $schoolClusters = SchoolCluster::pluck('name','name');
+        $prodi = Prodi::pluck('name','name');
 
         return view('pages.admin.mahasiswa.new')
             ->with([
                 'schoolMajors' => $schoolMajors,
-                'schoolClusters' => $schoolClusters
+                'schoolClusters' => $schoolClusters,
+                'prodi' => $prodi,
             ]);
     }
 
