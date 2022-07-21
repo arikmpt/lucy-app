@@ -194,7 +194,7 @@ class MahasiswaController extends Controller
             $school->major = $request->school_major;
             $school->year_graduate = $request->school_year_graduate;
             $school->score = $request->school_score;
-            $school->school_cluster = $request->school_cluster;
+            $school->cluster = $request->school_cluster;
             $school->user_id = $request->id;
             $storeSchool = $school->save();
 
@@ -229,14 +229,32 @@ class MahasiswaController extends Controller
     }
     public function destroy(Request $request)
     {
-        $find = User::findOrFail($request->id);
-        $find = UserSchool::where('user_id', $request->id);
-        $find = UserFather::where('user_id', $request->id);
-        $find = UserMother::where('user_id', $request->id);
+        try {
+            DB::beginTransaction();
 
-        $destroy = $find->delete();
+            $find2 = UserSchool::where('user_id', $request->id);
+            $destroy2 = $find2->delete();
 
-        return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
-            response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
+            $find3 = UserFather::where('user_id', $request->id);
+            $destroy3 = $find3->delete();
+            
+            $find4 = UserMother::where('user_id', $request->id);
+            $destroy4 = $find4->delete();
+
+            $find1 = User::findOrFail($request->id);
+            $destroy1 = $find1->delete();
+
+            if($destroy4 && $destroy3 && $destroy2 && $destroy1) {
+                DB::commit();
+
+                return response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json');
+            }
+            return redirect()->back()->with('danger', 'Failed to save');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', 'Fatal Error');
+        }
+            // return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
+            // response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
     }
 }
