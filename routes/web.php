@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::get('/new', 'MahasiswaController@new')->name('new');
             Route::get('/edit/{id}', 'MahasiswaController@edit')->name('edit');
             Route::post('/store', 'MahasiswaController@store')->name('store');
+            Route::delete('/destroy', 'MahasiswaController@destroy')->name('destroy');
             Route::post('/update', 'MahasiswaController@update')->name('update');
         });
     

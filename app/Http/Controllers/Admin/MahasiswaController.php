@@ -21,10 +21,20 @@ class MahasiswaController extends Controller
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            return DataTables::of([])->addIndexColumn()
+            return DataTables::of(User::get())->addIndexColumn()
+            ->addColumn('action', function($model) {
+                return '
+                    <a href="'.route('admin.mahasiswa.edit', $model->id).'" class="btn btn-sm btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <button type="button" class="btn btn-sm btn-danger btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                ';
+            })
             ->toJson();
         }
-    
+
         $html = $builder->columns([
             [
                 'data' => 'DT_RowIndex','title' => '#',
@@ -67,10 +77,12 @@ class MahasiswaController extends Controller
         $user = User::findOrFail($id);
         $schoolMajors = SchoolMajor::pluck('name','name');
         $schoolClusters = SchoolCluster::pluck('name','name');
+        $prodi = Prodi::pluck('name','name');
 
-        return view('pages.admin.mahasiswa.new')
+        return view('pages.admin.mahasiswa.edit')
             ->with([
                 'user'  => $user,
+                'prodi' => $prodi,
                 'schoolMajors' => $schoolMajors,
                 'schoolClusters' => $schoolClusters
             ]);
@@ -112,8 +124,8 @@ class MahasiswaController extends Controller
             $school->major = $request->school_major;
             $school->year_graduate = $request->school_year_graduate;
             $school->score = $request->school_score;
-            $school->school_cluster = $request->school_cluster;
-            $school->user_id = $storeUser->id;
+            $school->cluster = $request->school_cluster;
+            $school->user_id = $user->id;
             $storeSchool = $school->save();
 
             // Save Father
@@ -121,7 +133,7 @@ class MahasiswaController extends Controller
             $father->name = $request->father_name;
             $father->job = $request->father_job;
             $father->address = $request->father_address;
-            $father->user_id = $storeUser->id;
+            $father->user_id = $user->id;
             $storeFather = $father->save();
 
             // Save Mother
@@ -130,7 +142,7 @@ class MahasiswaController extends Controller
             $mother->name = $request->mother_name;
             $mother->job = $request->mother_job;
             $mother->address = $request->mother_address;
-            $mother->user_id = $storeUser->id;
+            $mother->user_id = $user->id;
             $storeMother = $mother->save();
 
             if($storeFather && $storeMother && $storeSchool && $storeUser) {
@@ -214,5 +226,17 @@ class MahasiswaController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', 'Fatal Error');
         }
+    }
+    public function destroy(Request $request)
+    {
+        $find = User::findOrFail($request->id);
+        $find = UserSchool::where('user_id', $request->id);
+        $find = UserFather::where('user_id', $request->id);
+        $find = UserMother::where('user_id', $request->id);
+
+        $destroy = $find->delete();
+
+        return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
+            response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
     }
 }

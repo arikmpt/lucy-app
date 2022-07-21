@@ -48,7 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan Yang Dipilih</label>
-                                {!! Form::select('major', [], $user->major, 
+                                {!! Form::select('major', $prodi, $user->major, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
