@@ -66,6 +66,7 @@ class SchoolDistrictController extends Controller
         $district = new SchoolCluster;
         $district->name= $request->name;
         $district->districts= $request->districts;
+        $district->predict_value= $request->predict_value;
 
         $store=$district->save();
 
@@ -106,6 +107,7 @@ class SchoolDistrictController extends Controller
         
         $district->name= $request->name;
         $district->districts= $request->districts;
+        $district->predict_value= $request->predict_value;
         
         $store=$district->save();
 

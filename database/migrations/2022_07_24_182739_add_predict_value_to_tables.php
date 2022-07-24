@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddPredictValueToTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('school_clusters', function (Blueprint $table) {
+            $table->unsignedBigInteger('predict_value')->default(0);
+        });
+
+        Schema::table('school_majors', function (Blueprint $table) {
+            $table->unsignedBigInteger('predict_value')->default(0);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('tables', function (Blueprint $table) {
+            //
+        });
+    }
+}

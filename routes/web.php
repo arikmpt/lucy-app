@@ -102,5 +102,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::put('/update', 'ProfileController@update')->name('update');
             Route::put('/change-password', 'ProfileController@changePassword')->name('change_password');
         });
+
+        Route::group(['prefix' => 'predict', 'as' => 'predict.'], function () {
+            Route::get('/', 'PredictController@index')->name('index');
+        });
     });
 });

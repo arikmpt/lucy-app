@@ -22,6 +22,17 @@
                             {!! Form::text('name', $district->name, ['class' => 'form-control','required']) !!}
                         </div>
                         <div class="form-group">
+                            <label for="">Nilai Prediksi</label>
+                            {!! Form::select('predict_value', [
+                                '100' => '100',
+                                '75' => '75',
+                                '50' => '50',
+                                '25' => '25',
+                                '0' => '0',
+                            ], $district->predict_value, 
+                            ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
+                        </div>
+                        <div class="form-group">
                             <label for="">Wilayah</label>
                             {!! Form::textarea('districts', $district->districts, ['class' => 'form-control', 'placeholder' => 'Payakumbuh, Bukittingi, Padang','required']) !!}
                         </div>

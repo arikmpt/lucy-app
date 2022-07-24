@@ -63,6 +63,7 @@ class SchoolMajorController extends Controller
 
         $major = new SchoolMajor;
         $major->name= $request->name;
+        $major->predict_value = $request->predict_value;
 
         $store=$major->save();
 
@@ -102,6 +103,7 @@ class SchoolMajorController extends Controller
         $major = SchoolMajor::where('id', $request->id)->FirstOrFail();
         
         $major->name= $request->name;
+        $major->predict_value = $request->predict_value;
         
         $store=$major->save();
 

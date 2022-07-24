@@ -104,6 +104,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.predict.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-history"></i>
+                                <p>
+                                    Data Prediksi Pendaftaran
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.profile.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
                                 <p>

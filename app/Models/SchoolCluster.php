@@ -12,6 +12,6 @@ class SchoolCluster extends Model
     protected $table = 'school_clusters';
 
     protected $fillable = [
-        'name','districts'
+        'name','districts','predict_value'
     ];
 }

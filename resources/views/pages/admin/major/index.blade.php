@@ -40,6 +40,17 @@
                         <label for="">Nama</label>
                         {!! Form::text('name', null, ['class' => 'form-control','required']) !!}
                     </div>
+                    <div class="form-group">
+                        <label for="">Nilai Prediksi</label>
+                        {!! Form::select('predict_value', [
+                            '100' => '100',
+                            '75' => '75',
+                            '50' => '50',
+                            '25' => '25',
+                            '0' => '0',
+                        ], null, 
+                        ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
