@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     {
         Admin::firstOrCreate(
             [
-                'name' => 'Admin',
+                'email' => 'admin@admin.com',
             ]
             ,
             [
