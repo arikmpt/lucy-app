@@ -1,53 +1,55 @@
 @extends('layouts.user')
-@section('page_title', 'Biodata')
+@section('page_title', 'Lengkapi Data')
 @section('breadcrumb')
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item active">Biodata</li>
+        <li class="breadcrumb-item active">Lengkapi</li>
     </ol>
 @endsection
 @section('content')
+    {!! Form::open(['route' => 'user.biodata.update']) !!}
+    {!! Form::hidden('id', $user->id, []) !!}
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Biodata</h5>
-                    <div class="text-right">
-                        <a href="{{ route('user.biodata.edit') }}" class="btn btn-primary">Update Data</a>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                <p>{{ Auth::user()->name }}</p>
+                                {!! Form::text('name', $user->name, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">No Hp</label>
-                                <p>{{ Auth::user()->phone }}</p>
+                                {!! Form::text('phone', $user->phone, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <p>{{ Auth::user()->email }}</p>
+                                {!! Form::email('email', $user->email, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label>
-                                <p>{{ Auth::user()->gender }}</p>
+                                {!! Form::select('gender', ['L' => 'Laki - Laki', 'P' => 'Perempuan'], $user->gender, 
+                                    ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tanggal Lahir</label>
-                                <p>{{ Auth::user()->date_of_birth }}</p>
+                                {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Tempat Lahir</label>
-                                <p>{{ Auth::user()->place_of_birth }}</p>
+                                {!! Form::text('place_of_birth', $user->place_of_birth, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan Yang Dipilih</label>
-                                <p>{{ Auth::user()->major }}</p>
+                                {!! Form::select('major', $prodi, $user->major, 
+                                    ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                     </div>
@@ -67,29 +69,31 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->name : '-' }}</p>
+                                {!! Form::text('school_name',$user->school ? $user->school->name : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->address : '-' }}</p>
+                                {!! Form::textarea('school_address', $user->school ? $user->school->address : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Jurusan</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->major : '-' }}</p>
+                                {!! Form::select('school_major', $schoolMajors, $user->school ? $user->school->major : null, 
+                                    ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tahun Tamat</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->year_graduate : '-' }}</p>
+                                {!! Form::text('school_year_graduate', $user->school ? $user->school->year_graduate : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Nilai Terakhir</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->score : '-' }}</p>
+                                {!! Form::text('school_score', $user->school ? $user->school->score : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Wilayah</label>
-                                <p>{{ Auth::user()->school ? Auth::user()->school->cluster : '-' }}</p>
+                                {!! Form::select('school_cluster', $schoolClusters, $user->school ? $user->school->cluster : null, 
+                                    ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
                         </div>
                     </div>
@@ -109,29 +113,29 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Ayah</label>
-                                <p>{{ Auth::user()->father ? Auth::user()->father->name : '-' }}</p>
+                                {!! Form::text('father_name', $user->father ? $user->father->name : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Pekerjaan Ayah</label>
-                                <p>{{ Auth::user()->father ? Auth::user()->father->job : '-' }}</p>
+                                {!! Form::text('father_job', $user->father ? $user->father->job : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat Ayah</label>
-                                <p>{{ Auth::user()->father ? Auth::user()->father->address : '-' }}</p>
+                                {!! Form::textarea('father_address', $user->father ? $user->father->address : null, ['class' => 'form-control','required']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Nama Ibu</label>
-                                <p>{{ Auth::user()->mother ? Auth::user()->mother->name : '-' }}</p>
+                                {!! Form::text('mother_name', $user->mother ? $user->mother->name : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Pekerjaan Ibu</label>
-                                <p>{{ Auth::user()->mother ? Auth::user()->mother->job : '-' }}</p>
+                                {!! Form::text('mother_job', $user->mother ? $user->mother->job : null, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat Ibu</label>
-                                <p>{{ Auth::user()->mother ? Auth::user()->mother->address : '-' }}</p>
+                                {!! Form::textarea('mother_address', $user->mother ? $user->mother->address : null, ['class' => 'form-control','required']) !!}
                             </div>
                         </div>
                     </div>
@@ -139,7 +143,19 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body text-right">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {!! Form::close() !!}
+
 @endsection
 @push('scripts')
     

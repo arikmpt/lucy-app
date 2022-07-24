@@ -28,6 +28,8 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
     
         Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
             Route::get('/', 'BiodataController@index')->name('index');
+            Route::get('/edit', 'BiodataController@edit')->name('edit');
+            Route::post('/update', 'BiodataController@update')->name('update');
         });
 
         Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
