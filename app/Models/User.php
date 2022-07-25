@@ -13,7 +13,7 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name','nim','phone','email','password','date_of_birth','place_of_birth','gender','major'
+        'name','nim','phone','email','password','date_of_birth','place_of_birth','gender','major','photo','status','struk'
     ];
 
     public function father()

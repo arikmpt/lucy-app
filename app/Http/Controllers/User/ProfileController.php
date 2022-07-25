@@ -8,6 +8,8 @@ use Auth;
 use App\Models\User;
 use Validator;
 use Hash;
+use Storage;
+use App\Helpers\ImageUploadHelpers;
 
 class ProfileController extends Controller
 {
@@ -19,7 +21,8 @@ class ProfileController extends Controller
     public function update(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'name' => 'required',
+            'phone' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -27,9 +30,26 @@ class ProfileController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
         $user = User::findOrFail(Auth::user()->id);
-        $user->name = $request->name;
+
+        if($request->hasFile('photo')) {
+            $path = ImageUploadHelpers::upload($request->file('photo'), 'profile/');
+            if(Storage::disk('public')->exists($user->path)) {
+                Storage::disk('public')->delete($user->path);
+            }
+        } else {
+            $path = null;
+        }
+        if($path){
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->photo = $path;
+        }
+        else {
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+        }
+
         $store = $user->save();
         
         return $store ? redirect()->route('user.profile.index')->with('status', 'Data saved statusfully')

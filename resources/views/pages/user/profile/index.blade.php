@@ -14,6 +14,13 @@
                     <h5 class="card-title">Profile</h5>
                 </div>
                 <div class="card-body">
+                    <div class="profile-photo">
+                        @if (Auth::user()->photo == null)
+                        <img src="{{ asset('assets/images/user-profile.webp') }}" alt="photo-profile" class="img-fluid">
+                        @else
+                        <img src="{{ asset('/storage') }}/{{ Auth::user()->photo }}" alt="photo-profile" class="img-fluid">
+                        @endif
+                    </div>
                     <div class="form-group">
                         <label for="">Name:</label>
                         <p>{{ Auth::user()->name }}</p>
@@ -42,7 +49,7 @@
     <div class="modal fade" id="modal-default" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['route' => 'user.profile.update', 'method' => 'PUT']) !!}
+                {!! Form::open(['route'=>'user.profile.update','enctype' => 'multipart/form-data', 'method' => 'PUT']) !!}
                 <div class="modal-header">
                     <h4 class="modal-title">Sunting Profile</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -50,6 +57,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group update-photo">
+                        <label for="">Photo Profile</label>
+                        <input type="file" class="form-control dropify" name="photo" data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg">
+                    </div>
                     <div class="form-group">
                         <label for="">Nama</label>
                         {!! Form::text('name', Auth::user()->name, ['class' => 'form-control']) !!}

@@ -17,8 +17,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <script type="text/javascript" src="{{ asset('assets/vendor/dropify/js/dropify.min.js') }}"></script>
+    <link href="{{ asset('assets/vendor/dropify/css/dropify.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style-user.css') }}">
     <script>
         $(document).ready(function() {
             setInterval(function(){ 
@@ -79,6 +87,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                         </li>
+                        @if(Auth::user()->nim == null)
+                        @else
+                        <li class="nav-item">
+                            <a href="{{ route('user.pembayaran.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Pembayaran Pendaftaran
+                                </p>
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('user.auth.logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -154,15 +173,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED SCRIPTS -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
+    
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+        });
+    </script>
     
     @stack('scripts')
 </body>

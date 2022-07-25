@@ -24,6 +24,10 @@
                                 <p>{{ Auth::user()->name }}</p>
                             </div>
                             <div class="form-group">
+                                <label for="">NIM</label>
+                                <p>{{ Auth::user()->nim }}</p>
+                            </div>
+                            <div class="form-group">
                                 <label for="">No Hp</label>
                                 <p>{{ Auth::user()->phone }}</p>
                             </div>
@@ -31,12 +35,12 @@
                                 <label for="">Email</label>
                                 <p>{{ Auth::user()->email }}</p>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label>
                                 <p>{{ Auth::user()->gender }}</p>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tanggal Lahir</label>
                                 <p>{{ Auth::user()->date_of_birth }}</p>

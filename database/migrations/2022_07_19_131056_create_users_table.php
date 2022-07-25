@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
                 $table->date('date_of_birth')->nullable();
                 $table->string('place_of_birth')->nullable();
                 $table->enum('gender', ['L', 'P'])->nullable();
+                $table->string('photo')->nullable();
+                $table->string('status')->nullable();
+                $table->string('struk')->nullable();
                 $table->rememberToken();
                 $table->timestamps();
             });

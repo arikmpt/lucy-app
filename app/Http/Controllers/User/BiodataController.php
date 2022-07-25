@@ -58,6 +58,7 @@ class BiodataController extends Controller
 
             // Save User
             $user = User::findOrFail($request->id);
+            $user->nim = $request->nim;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
@@ -66,6 +67,7 @@ class BiodataController extends Controller
             $user->place_of_birth = $request->place_of_birth;
             $user->gender = $request->gender;
             $user->major = $request->major;
+            $user->status = 'Belum Bayar';
             $storeUser = $user->save();
 
             // Save School

@@ -16,7 +16,7 @@ class CreateUserSchoolsTable extends Migration
         if (!Schema::hasTable('user_schools')) {
             Schema::create('user_schools', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
+                $table->string('name')->nullable();
                 $table->text('address')->nullable();
                 $table->string('major')->nullbale();
                 $table->string('year_graduate')->nullable();

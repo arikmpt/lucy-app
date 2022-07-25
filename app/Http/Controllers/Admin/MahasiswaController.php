@@ -15,6 +15,7 @@ use App\Models\UserSchool;
 use App\Models\Prodi;
 use DB;
 use Validator;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -24,6 +25,9 @@ class MahasiswaController extends Controller
             return DataTables::of(User::get())->addIndexColumn()
             ->addColumn('action', function($model) {
                 return '
+                    <a href="'.route('admin.mahasiswa.check', $model->id).'" class="btn btn-sm btn-primary">
+                        <i class="fas fa-file-alt"></i>
+                    </a>
                     <a href="'.route('admin.mahasiswa.edit', $model->id).'" class="btn btn-sm btn-primary">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
@@ -44,6 +48,7 @@ class MahasiswaController extends Controller
             ['data' => 'nim', 'name' => 'NIM', 'title' => 'NIM'],
             ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
             ['data' => 'gender', 'name' => 'gender', 'title' => 'Jenis Kelamin'],
+            ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
             [
                 'data' => 'action','title' => 'Action',
                 'width' => '170px','class' => 'text-center',
@@ -56,6 +61,13 @@ class MahasiswaController extends Controller
         ->with([
             'html' => $html
         ]);
+    }
+    public function PDFPrint()
+    {
+        $user = User::all();
+ 
+    	$pdf = PDF::loadview('pages.admin.mahasiswa.print',['user'=>$user]);
+    	return $pdf->download('laporan-mahasiswa.pdf');
     }
 
     public function new()
@@ -88,6 +100,16 @@ class MahasiswaController extends Controller
             ]);
     }
 
+    public function check($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('pages.admin.mahasiswa.check')
+            ->with([
+                'user'  => $user,
+            ]);
+    }
+
     public function store(Request $request)
     {
         try {
@@ -115,6 +137,7 @@ class MahasiswaController extends Controller
             $user->place_of_birth = $request->place_of_birth;
             $user->gender = $request->gender;
             $user->major = $request->major;
+            $user->status = 'Belum Bayar';
             $storeUser = $user->save();
 
             // Save School
@@ -154,6 +177,7 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('danger', 'Failed to save');
 
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('danger', 'Fatal Error');
         }
     }

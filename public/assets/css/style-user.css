@@ -1,0 +1,12 @@
+.update-photo {
+    width: 50%;
+}
+.dropify-message p {
+    font-size: 20px;
+}
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}

@@ -25,6 +25,11 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
             Route::put('/update', 'ProfileController@update')->name('update');
             Route::put('/change-password', 'ProfileController@changePassword')->name('change_password');
         });
+
+        Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
+            Route::get('/', 'BuktiBayarController@index')->name('index');
+            Route::put('/update', 'BuktiBayarController@update')->name('update');
+        });
     
         Route::group(['prefix' => 'biodata', 'as' => 'biodata.'], function () {
             Route::get('/', 'BiodataController@index')->name('index');
@@ -59,9 +64,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::get('/', 'MahasiswaController@index')->name('index');
             Route::get('/new', 'MahasiswaController@new')->name('new');
             Route::get('/edit/{id}', 'MahasiswaController@edit')->name('edit');
+            Route::get('/check/{id}', 'MahasiswaController@check')->name('check');
             Route::post('/store', 'MahasiswaController@store')->name('store');
             Route::delete('/destroy', 'MahasiswaController@destroy')->name('destroy');
             Route::post('/update', 'MahasiswaController@update')->name('update');
+            Route::get('/print', 'MahasiswaController@PDFPrint')->name('print');
         });
     
         Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
