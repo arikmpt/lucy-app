@@ -40,7 +40,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tanggal Lahir</label>
-                                {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'form-control','required']) !!}
+                                {!! Form::date('date_of_birth', $user->date_of_birth, ['class' => 'form-control','required']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="">Tempat Lahir</label>
