@@ -8,6 +8,7 @@ use App\Models\Predict;
 use App\Models\User;
 use App\Models\SchoolCluster;
 use App\Models\SchoolMajor;
+use PDF;
 
 class PredictController extends Controller
 {
@@ -19,6 +20,13 @@ class PredictController extends Controller
         return view('pages.admin.predict.index')->with([
             'predicts' => $predicts
         ]);
+    }
+    public function print()
+    {
+        $predicts = Predict::all();
+ 
+    	$pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts])->setPaper('a4', 'landscape');
+    	return $pdf->download('laporan-prediksi-pendaftaran.pdf');
     }
 
     public function process()

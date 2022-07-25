@@ -12,6 +12,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Data Prediksi Pendaftaran</h5>
+                    <div class="text-right">
+                        <a href="{{ route('admin.predict.print') }}" class="btn btn-primary">
+                            Report Data
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
