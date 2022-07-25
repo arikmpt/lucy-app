@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
                 $table->string('password');
                 $table->date('date_of_birth')->nullable();
                 $table->string('place_of_birth')->nullable();
-                $table->enum('gender', ['L', 'P']);
+                $table->enum('gender', ['L', 'P'])->nullable();
                 $table->rememberToken();
                 $table->timestamps();
             });
