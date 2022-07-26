@@ -18,6 +18,11 @@ class ProfileController extends Controller
         return view('pages.user.profile.index');
     }
 
+    public function dashboard()
+    {
+        return view('pages.user.dashboard.index');
+    }
+
     public function update(Request $request) 
     {
         $validator = Validator::make($request->all(), [

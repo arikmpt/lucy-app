@@ -72,6 +72,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
+                            <a href="{{ route('user.dashboard.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-laptop"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('user.biodata.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>

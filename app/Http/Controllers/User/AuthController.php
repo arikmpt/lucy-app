@@ -61,7 +61,7 @@ class AuthController extends Controller
         }
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('user.profile.index');
+            return redirect()->route('user.dashboard.index');
         } else {
             return redirect()->back()->with('danger', 'Password / Email Anda Salah');
         }

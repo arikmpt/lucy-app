@@ -10,3 +10,10 @@
     border-radius: 50%;
     overflow: hidden;
 }
+.logo-login-page {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.logo-login {
+    width: 200px;
+}

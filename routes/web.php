@@ -26,6 +26,10 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
             Route::put('/change-password', 'ProfileController@changePassword')->name('change_password');
         });
 
+        Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+            Route::get('/', 'ProfileController@dashboard')->name('index');
+        });
+
         Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
             Route::get('/', 'BuktiBayarController@index')->name('index');
             Route::put('/update', 'BuktiBayarController@update')->name('update');

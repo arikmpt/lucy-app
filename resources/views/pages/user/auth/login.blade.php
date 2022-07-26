@@ -15,11 +15,15 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style-user.css') }}">
 </head>
 
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
+        <div class="logo-login-page">
+            <img src="{{ asset('assets/images/bm.png') }}" alt="logo-sttp" class="img-fluid logo-login">
+        </div>
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 STTP Online System
