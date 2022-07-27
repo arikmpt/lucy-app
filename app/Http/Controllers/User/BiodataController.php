@@ -41,6 +41,8 @@ class BiodataController extends Controller
 
     public function update(Request $request)
     {
+        
+
         try {
 
             $validator = Validator::make($request->all(), [
@@ -54,11 +56,33 @@ class BiodataController extends Controller
                             ->withInput();
             }
 
+            $nopendex = User::where('id', $request->id)->first();
+
+            if ($nopendex->nim === null) {
+                $nopend = User::orderBy('id', 'desc')->first();
+                if ($nopend === null) {
+                    $nopend->nim = 'PMB-STTP0000000';
+                    $nim = substr($nopend->nim,8);
+                    $nopnow = (int)$nim + 1;
+                    $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+                }
+                else {
+                    $nim = substr($nopend->nim,8);
+                    $nopnow = (int)$nim + 1;
+                    $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+                }
+            }
+            else {
+                $nim = substr($nopendex->nim,8);
+                $nopnow = $nim;
+                $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+            }
+
             DB::beginTransaction();
 
             // Save User
             $user = User::findOrFail($request->id);
-            $user->nim = $request->nim;
+            $user->nim = $nimrec;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
@@ -107,6 +131,7 @@ class BiodataController extends Controller
             return redirect()->back()->with('danger', 'Failed to save');
 
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('danger', 'Fatal Error');
         }
     }

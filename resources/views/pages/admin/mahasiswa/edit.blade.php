@@ -20,6 +20,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="">No Pendaftaran</label>
+                                {!! Form::text('nim', $user->nim, ['class' => 'form-control','required']) !!}
+                            </div>
+                            <div class="form-group">
                                 <label for="">Nama</label>
                                 {!! Form::text('name', $user->name, ['class' => 'form-control','required']) !!}
                             </div>
@@ -31,13 +35,13 @@
                                 <label for="">Email</label>
                                 {!! Form::email('email', $user->email, ['class' => 'form-control','required']) !!}
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label>
                                 {!! Form::select('gender', ['L' => 'Laki - Laki', 'P' => 'Perempuan'], $user->gender, 
                                     ['class' => 'form-control','required','placeholder' => 'Pilih Salah Satu']) !!}
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Tanggal Lahir</label>
                                 {!! Form::text('date_of_birth', $user->date_of_birth, ['class' => 'form-control','required']) !!}

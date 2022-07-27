@@ -45,7 +45,7 @@ class MahasiswaController extends Controller
                 'orderable' => false,'searchable' => false,
                 'width' => '24px'
             ],
-            ['data' => 'nim', 'name' => 'NIM', 'title' => 'NIM'],
+            ['data' => 'nim', 'name' => 'NIM', 'title' => 'No Pendaftaran'],
             ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
             ['data' => 'gender', 'name' => 'gender', 'title' => 'Jenis Kelamin'],
             ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
@@ -124,11 +124,25 @@ class MahasiswaController extends Controller
                             ->withInput();
             }
 
+            
+            $nopend = User::orderBy('id', 'desc')->first();
+            if ($nopend === null) {
+                $nopend->nim = 'PMB-STTP0000000';
+                $nim = substr($nopend->nim,8);
+                $nopnow = (int)$nim + 1;
+                $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+            }
+            else {
+                $nim = substr($nopend->nim,8);
+                $nopnow = (int)$nim + 1;
+                $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+            }
+            
             DB::beginTransaction();
 
             // Save User
             $user = new User;
-            $user->nim = '123456789';
+            $user->nim = $nimrec;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
@@ -201,6 +215,7 @@ class MahasiswaController extends Controller
 
             // Save User
             $user = User::findOrFail($request->id);
+            $user->nim = $request->nim;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
