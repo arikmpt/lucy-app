@@ -57,9 +57,14 @@ class MahasiswaController extends Controller
             ]
         ])->minifiedAjax()->responsive()->autoWidth(false);
 
+        $schoolMajors = SchoolMajor::pluck('name','name');
+        $schoolClusters = SchoolCluster::pluck('name','name');
+         
         return view('pages.admin.mahasiswa.index')
         ->with([
-            'html' => $html
+            'html' => $html,
+            'schoolMajors' => $schoolMajors,
+            'schoolClusters' => $schoolClusters,
         ]);
     }
     public function PDFPrint()
@@ -68,6 +73,41 @@ class MahasiswaController extends Controller
  
     	$pdf = PDF::loadview('pages.admin.mahasiswa.print',['user'=>$user]);
     	return $pdf->download('laporan-mahasiswa.pdf');
+    }
+
+    public function filter(Request $request)
+    {
+        $user = new User();
+
+        if($request->gender) {
+            $user->where('gender', $request->gender);
+        }
+        if($request->school_major) {
+            $user->whereHas('school',function($query) use($request){
+                $query->where('major', $request->school_major);
+            });
+        }
+
+        if($request->school_cluster) {
+            $user->whereHas('school',function($query) use($request){
+                $query->where('cluster', $request->school_cluster);
+            });
+        }
+ 
+    	return view('pages.admin.mahasiswa.pdfview')
+            ->with([
+                'user' => $user->get(),
+            ]);
+    }
+
+    public function reportview()
+    {
+        $user = User::all();
+ 
+    	return view('pages.admin.mahasiswa.pdfview')
+            ->with([
+                'user' => $user,
+            ]);
     }
 
     public function new()
@@ -126,9 +166,10 @@ class MahasiswaController extends Controller
 
             
             $nopend = User::orderBy('id', 'desc')->first();
-            if ($nopend === null) {
-                $nopend->nim = 'PMB-STTP0000000';
-                $nim = substr($nopend->nim,8);
+
+            if ($nopend == null) {
+                $nop = 'PMB-STTP0000000';
+                $nim = substr($nop,8);
                 $nopnow = (int)$nim + 1;
                 $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
             }
@@ -137,7 +178,7 @@ class MahasiswaController extends Controller
                 $nopnow = (int)$nim + 1;
                 $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
             }
-            
+
             DB::beginTransaction();
 
             // Save User
@@ -215,7 +256,6 @@ class MahasiswaController extends Controller
 
             // Save User
             $user = User::findOrFail($request->id);
-            $user->nim = $request->nim;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
@@ -227,7 +267,7 @@ class MahasiswaController extends Controller
             $storeUser = $user->save();
 
             // Save School
-            $school = UserSchool::where('user_id', $request->id)->firstOrFail();
+            $school = UserSchool::where('user_id', $request->id)->first() ? UserSchool::where('user_id', $request->id)->first() : new UserSchool;
             $school->name = $request->school_name;
             $school->address = $request->school_address;
             $school->major = $request->school_major;
@@ -238,7 +278,7 @@ class MahasiswaController extends Controller
             $storeSchool = $school->save();
 
             // Save Father
-            $father = UserFather::where('user_id', $request->id)->firstOrFail();
+            $father = UserFather::where('user_id', $request->id)->first() ? UserFather::where('user_id', $request->id)->first() :  new UserFather;
             $father->name = $request->father_name;
             $father->job = $request->father_job;
             $father->address = $request->father_address;
@@ -247,7 +287,7 @@ class MahasiswaController extends Controller
 
             // Save Mother
 
-            $mother = UserMother::where('user_id', $request->id)->firstOrFail();
+            $mother = UserMother::where('user_id', $request->id)->first() ? UserMother::where('user_id', $request->id)->first() : new UserMother;
             $mother->name = $request->mother_name;
             $mother->job = $request->mother_job;
             $mother->address = $request->mother_address;
@@ -263,6 +303,7 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('danger', 'Failed to save');
 
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('danger', 'Fatal Error');
         }
     }
@@ -283,15 +324,15 @@ class MahasiswaController extends Controller
             $find1 = User::findOrFail($request->id);
             $destroy1 = $find1->delete();
 
-            if($destroy4 && $destroy3 && $destroy2 && $destroy1) {
+            if($destroy4 || $destroy3 || $destroy2 || $destroy1) {
                 DB::commit();
 
                 return response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json');
             }
-            return redirect()->back()->with('danger', 'Failed to save');
+            return response()->json(['success' => false, 'message' => 'error'], 400)->header('Content-Type', 'application/json');
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('danger', 'Fatal Error');
+            return response()->json(['success' => false, 'message' => 'error catch'], 200)->header('Content-Type', 'application/json');
         }
             // return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
             // response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');

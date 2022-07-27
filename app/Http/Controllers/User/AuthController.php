@@ -24,8 +24,8 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'email' => 'required|unique:users',
+            'phone' => 'required|unique:users',
             'password' => 'required',
         ]);
 
@@ -34,11 +34,27 @@ class AuthController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+        
+        $nopend = User::orderBy('id', 'desc')->first();
+        
+        if ($nopend == null) {
+            $nop = 'PMB-STTP0000000';
+            $nim = substr($nop,8);
+            $nopnow = (int)$nim + 1;
+            $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+        }
+        else {
+            $nim = substr($nopend->nim,8);
+            $nopnow = (int)$nim + 1;
+            $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
+        }
 
         $user = new User;
+        $user->nim = $nimrec;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->status = 'Belum Bayar';
         $user->password = bcrypt($request->password);
 
         $store = $user->save();

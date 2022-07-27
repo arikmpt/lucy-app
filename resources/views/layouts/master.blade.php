@@ -63,19 +63,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     Dashboard
                                 </p>
                             </a>
-                        </li><li class="nav-item">
-                            <a href="{{ route('admin.prodi.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user-graduate"></i>
-                                <p>
-                                    Data Prodi
-                                </p>
-                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.mahasiswa.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Data Mahasiswa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.prodi.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                <p>
+                                    Data Prodi
                                 </p>
                             </a>
                         </li>

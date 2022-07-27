@@ -72,6 +72,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::post('/store', 'MahasiswaController@store')->name('store');
             Route::delete('/destroy', 'MahasiswaController@destroy')->name('destroy');
             Route::post('/update', 'MahasiswaController@update')->name('update');
+
+            Route::post('/filter', 'MahasiswaController@filter')->name('filter');
+            Route::get('/reportview', 'MahasiswaController@reportview')->name('view');
             Route::get('/print', 'MahasiswaController@PDFPrint')->name('print');
         });
     

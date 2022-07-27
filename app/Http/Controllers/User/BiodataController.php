@@ -56,30 +56,6 @@ class BiodataController extends Controller
                             ->withInput();
             }
 
-            $nopendex = User::where('id', $request->id)->first();
-
-            if ($nopendex->nim === null) {
-                $nopend = User::orderBy('id', 'desc')->first();
-                if ($nopend === null) {
-                    $nopend->nim = 'PMB-STTP0000000';
-                    $nim = substr($nopend->nim,8);
-                    $nopnow = (int)$nim + 1;
-                    $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
-                }
-                else {
-                    $nim = substr($nopend->nim,8);
-                    $nopnow = (int)$nim + 1;
-                    $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
-                }
-                dd($nopend);
-
-            }
-            else {
-                $nim = substr($nopendex->nim,8);
-                $nopnow = $nim;
-                $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
-            }
-
             DB::beginTransaction();
 
             // Save User

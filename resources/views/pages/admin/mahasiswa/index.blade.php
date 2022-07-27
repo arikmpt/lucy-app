@@ -13,9 +13,12 @@
                 <div class="card-header">
                     <h5 class="card-title">Data Mahasiswa</h5>
                     <div class="text-right">
-                        <a href="{{ route('admin.mahasiswa.print') }}" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                             Report Data
-                        </a>
+                        </button>
+                        {{-- <a href="{{ route('admin.mahasiswa.view') }}" class="btn btn-primary">
+                            Report Data
+                        </a> --}}
                         <a href="{{ route('admin.mahasiswa.new') }}" class="btn btn-success">Tambah Baru</a>
                     </div>
                 </div>
@@ -30,21 +33,34 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Upload Data</h4>
+                    <h4 class="modal-title">Filter Report</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                {!! Form::open(['route' => 'admin.mahasiswa.filter']) !!}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Upload Excel File</label>
-                        {!! Form::file('file', ['class' => 'form-control']) !!}
+                        <label for="">Jenis Kelamin</label>
+                        {!! Form::select('gender', ['L' => 'Laki - Laki', 'P' => 'Perempuan'], null, 
+                                    ['class' => 'form-control','placeholder' => 'Pilih Salah Satu']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jurusan Sekolah</label>
+                        {!! Form::select('school_major', $schoolMajors, null, 
+                                    ['class' => 'form-control','placeholder' => 'Pilih Salah Satu']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Letak Sekolah</label>
+                        {!! Form::select('school_cluster', $schoolClusters, null, 
+                                    ['class' => 'form-control','placeholder' => 'Pilih Salah Satu']) !!}
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>        
     </div>
