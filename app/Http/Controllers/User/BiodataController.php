@@ -71,6 +71,8 @@ class BiodataController extends Controller
                     $nopnow = (int)$nim + 1;
                     $nimrec = 'PMB-STTP' . sprintf("%07d", $nopnow);
                 }
+                dd($nopend);
+
             }
             else {
                 $nim = substr($nopendex->nim,8);
@@ -86,7 +88,6 @@ class BiodataController extends Controller
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
-            $user->password =  bcrypt('123456789');
             $user->date_of_birth = $request->date_of_birth;
             $user->place_of_birth = $request->place_of_birth;
             $user->gender = $request->gender;
