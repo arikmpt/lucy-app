@@ -12,6 +12,6 @@ class Predict extends Model
     protected $table = 'predicts';
 
     protected $fillable = [
-        'name','nim','phone','email','date_of_birth','place_of_birth','gender','major','school','school_major','school_cluster','status'
+        'name','nim','phone','email','date_of_birth','place_of_birth','gender','major','school','school_major','school_cluster','status','percentage','unpercentage'
     ];
 }

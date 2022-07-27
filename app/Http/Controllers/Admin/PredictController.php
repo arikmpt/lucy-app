@@ -43,32 +43,35 @@ class PredictController extends Controller
 
         foreach($users as $user) {
             if($user->gender === "L") {
-                $jenis_kelamin += 50;
+                $jenis_kelamin = 50;
             }
 
             if($user->gender === "P") {
-                $jenis_kelamin += 50;
+                $jenis_kelamin = 50;
             }
 
-            $cluster = SchoolCluster::where('districts', $user->school->cluster)->first();
-
-            if($cluster) {
-                $asal_sekolah += $cluster->predict_value;
+            if($user->school) {
+                $cluster = SchoolCluster::where('districts', $user->school->cluster)->first();
+    
+                if($cluster) {
+                    $asal_sekolah = $cluster->predict_value;
+                }
+                $major = SchoolMajor::where('name', $user->school->major)->first();
+    
+                if($major) {
+                    $jurusan_sekolah = $major->predict_value;
+                }
+    
+                if($user->school->score >= 7) {
+                    $nilai = 100;
+                }
+    
+                if($user->school->score <= 6) {
+                    $nilai = 50;
+                }
             }
 
-            $major = SchoolMajor::where('name', $user->school->major)->first();
-
-            if($major) {
-                $jurusan_sekolah += $major->predict_value;
-            }
-
-            if($user->school->score >= 7) {
-                $nilai += 100;
-            }
-
-            if($user->school->score <= 6) {
-                $nilai += 50;
-            }
+            
 
             $umur = 100;
 
@@ -92,11 +95,13 @@ class PredictController extends Controller
             $predict->place_of_birth = $user->place_of_birth;
             $predict->gender = $user->gender;
             $predict->major = $user->major;
-            $predict->school = $user->school->name;
-            $predict->school_major = $user->school->major;
-            $predict->school_cluster = $user->school->cluster;
+            $predict->school = $user->school ? $user->school->name : null;
+            $predict->school_major = $user->school ? $user->school->major : null;
+            $predict->school_cluster = $user->school ? $user->school->cluster : null;
             $predict->status = $status;
             $predict->user_id = $user->id;
+            $predict->percentage = $proRate;
+            $predict->unpercentage = 100 - (int)$proRate;
             $predict->save();
         }
 

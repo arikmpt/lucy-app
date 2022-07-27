@@ -46,7 +46,10 @@
                                     <td>{{ $predict->school }}</td>
                                     <td>{{ $predict->school_cluster }}</td>
                                     <td>{{ $predict->school_major }}</td>
-                                    <td>{{ $predict->status }}</td>
+                                    <td>
+                                        <p>DAFTAR {{ $predict->percentage }}%</p>    
+                                        <p>TIDAK DAFTAR {{ $predict->unpercentage }}%</p>    
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
