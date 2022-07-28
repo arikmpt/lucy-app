@@ -47,7 +47,8 @@ class MahasiswaController extends Controller
             ],
             ['data' => 'nim', 'name' => 'NIM', 'title' => 'No Pendaftaran'],
             ['data' => 'name', 'name' => 'name', 'title' => 'Nama'],
-            ['data' => 'gender', 'name' => 'gender', 'title' => 'Jenis Kelamin'],
+            ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
+            ['data' => 'phone', 'name' => 'phone', 'title' => 'No Telp'],
             ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
             [
                 'data' => 'action','title' => 'Action',
