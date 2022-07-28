@@ -27,7 +27,7 @@ class CreatePredictsTable extends Migration
                 $table->string('school')->nullable();
                 $table->string('school_major')->nullable();
                 $table->string('school_cluster')->nullable();
-                $table->enum('status', ['AKAN MENDAFTAR','MUNGKIN MENDAFTAR','TIDAK MENDAFTAR']);
+                $table->enum('status', ['DAFTAR','TIDAK']);
                 $table->timestamps();
 
                 if (Schema::hasTable('users')) {

@@ -37,7 +37,7 @@ class PredictController extends Controller
         $jurusan_sekolah = 0;
         $nilai = 0;
         $umur = 0;
-        $status = 'TIDAK MENDAFTAR';
+        $status = 'TIDAK';
 
         $users = User::get();
 
@@ -77,12 +77,10 @@ class PredictController extends Controller
 
             $proRate = ($jenis_kelamin + $asal_sekolah + $jurusan_sekolah + $nilai + $umur) / 5;
 
-            if($proRate > 75) {
-                $status = 'AKAN MENDAFTAR';
-            } else if($proRate > 50 && $proRate < 75) {
-                $status = 'MUNGKIN MENDAFTAR';
+            if($proRate > 50) {
+                $status = 'DAFTAR';
             } else {
-                $status = 'TIDAK MENDAFTAR';
+                $status = 'TIDAK';
             }
             
 
