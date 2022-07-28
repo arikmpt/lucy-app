@@ -77,7 +77,7 @@ class PredictController extends Controller
 
             $proRate = ($jenis_kelamin + $asal_sekolah + $jurusan_sekolah + $nilai + $umur) / 5;
 
-            if($proRate > 75) {
+            if($proRate >= 65) {
                 $status = 'DAFTAR';
             } else {
                 $status = 'TIDAK';
