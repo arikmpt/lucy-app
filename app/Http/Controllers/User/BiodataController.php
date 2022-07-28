@@ -60,7 +60,6 @@ class BiodataController extends Controller
 
             // Save User
             $user = User::findOrFail($request->id);
-            $user->nim = $nimrec;
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
