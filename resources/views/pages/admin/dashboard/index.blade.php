@@ -7,20 +7,9 @@
     </ol>
 @endsection
 @section('content')
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Card title</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.
-                    </p>
-                </div>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <img src="{{ asset('assets/images/sttp.jpeg') }}" alt="logo-sttp" class="img-fluid">
         </div>
     </div>
 @endsection
