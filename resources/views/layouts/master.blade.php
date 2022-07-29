@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="#" class="d-block">Admin Name</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -61,14 +61,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.mahasiswa.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Data Mahasiswa
                                 </p>
                             </a>
                         </li>
@@ -93,6 +85,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-graduation-cap"></i>
                                 <p>
                                     Data Jurusan Sekolah
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.mahasiswa.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Data Pendaftaran
                                 </p>
                             </a>
                         </li>

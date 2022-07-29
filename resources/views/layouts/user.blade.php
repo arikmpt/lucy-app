@@ -54,16 +54,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <span class="brand-text font-weight-light">Mahasiswa Panel</span>
+            <a href="index3.html" class="brand-link text-center">
+                <span class="brand-text font-weight-light">Pendaftaran</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
                     <div class="info">
-                        <a href="#" class="d-block">Nama Mahasiswa</a>
+                        <div class="profile-photo">
+                            @if (Auth::user()->photo == null)
+                            <img src="{{ asset('assets/images/user-profile.webp') }}" alt="photo-profile" class="img-fluid">
+                            @else
+                            <img src="{{ asset('/storage') }}/{{ Auth::user()->photo }}" alt="photo-profile" class="img-fluid">
+                            @endif
+                        </div>
+                        <a href="{{ route('user.profile.index') }}" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -87,14 +94,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user.profile.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    Profile
-                                </p>
-                            </a>
-                        </li>
                         @if(Auth::user()->nim == null)
                         @else
                         <li class="nav-item">
@@ -106,6 +105,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         @endif
+                        <li class="nav-item">
+                            <a href="{{ route('user.profile.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('user.auth.logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -17,3 +17,15 @@
 .logo-login {
     width: 200px;
 }
+.user-panel .info {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+.sidebar .profile-photo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+.sidebar .profile-photo img {
+    width: auto;
+}

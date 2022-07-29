@@ -14,13 +14,6 @@
                     <h5 class="card-title">Profile</h5>
                 </div>
                 <div class="card-body">
-                    <div class="profile-photo">
-                        @if (Auth::user()->photo == null)
-                        <img src="{{ asset('assets/images/user-profile.webp') }}" alt="photo-profile" class="img-fluid">
-                        @else
-                        <img src="{{ asset('/storage') }}/{{ Auth::user()->photo }}" alt="photo-profile" class="img-fluid">
-                        @endif
-                    </div>
                     <div class="form-group">
                         <label for="">Name:</label>
                         <p>{{ Auth::user()->name }}</p>

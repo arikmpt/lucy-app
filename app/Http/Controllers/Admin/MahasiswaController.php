@@ -325,15 +325,15 @@ class MahasiswaController extends Controller
             $find1 = User::findOrFail($request->id);
             $destroy1 = $find1->delete();
 
-            if($destroy4 || $destroy3 || $destroy2 || $destroy1) {
+            if($destroy4 && $destroy3 && $destroy2 && $destroy1) {
                 DB::commit();
 
                 return response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json');
             }
-            return response()->json(['success' => false, 'message' => 'error'], 400)->header('Content-Type', 'application/json');
+            return response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
 
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => 'error catch'], 200)->header('Content-Type', 'application/json');
+            return response()->json(['success' => false, 'message' => 'Fatal Error'], 400)->header('Content-Type', 'application/json');
         }
             // return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 
             // response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
