@@ -96,14 +96,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         @if(Auth::user()->nim == null)
                         @else
-                        <li class="nav-item">
-                            <a href="{{ route('user.pembayaran.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    Pembayaran Pendaftaran
-                                </p>
-                            </a>
-                        </li>
+                            @if (Auth::user()->status == 'Admin Register')
+                            @else
+                            <li class="nav-item">
+                                <a href="{{ route('user.pembayaran.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>
+                                        Pembayaran Pendaftaran
+                                    </p>
+                                </a>
+                            </li>
+                            @endif
                         @endif
                         <li class="nav-item">
                             <a href="{{ route('user.profile.index') }}" class="nav-link">

@@ -17,6 +17,8 @@
                     <div class="struk-photo">
                         @if ($user->status == "Belum Bayar")
                         <p>User belum meng-upload bukti pembayaran.</p>
+                        @elseif ($user->status == "Admin Register")
+                        <p>Daftar offline, pembayaran cash</p>
                         @else
                         <img src="{{ asset('/storage') }}/{{ $user->struk }}" alt="struk-photo" class="img-fluid">
                         @endif

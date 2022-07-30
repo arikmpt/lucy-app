@@ -193,7 +193,7 @@ class MahasiswaController extends Controller
             $user->place_of_birth = $request->place_of_birth;
             $user->gender = $request->gender;
             $user->major = $request->major;
-            $user->status = 'Belum Bayar';
+            $user->status = 'Admin Register';
             $storeUser = $user->save();
 
             // Save School
@@ -233,7 +233,6 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('danger', 'Failed to save');
 
         } catch (\Throwable $th) {
-            dd($th);
             return redirect()->back()->with('danger', 'Fatal Error');
         }
     }
@@ -325,7 +324,7 @@ class MahasiswaController extends Controller
             $find1 = User::findOrFail($request->id);
             $destroy1 = $find1->delete();
 
-            if($destroy4 && $destroy3 && $destroy2 && $destroy1) {
+            if($destroy4 || $destroy3 || $destroy2 || $destroy1) {
                 DB::commit();
 
                 return response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json');
