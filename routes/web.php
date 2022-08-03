@@ -121,5 +121,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             Route::get('/', 'PredictController@index')->name('index');
             Route::get('/print', 'PredictController@print')->name('print');
         });
+
+        Route::group(['prefix' => 'umur', 'as' => 'umur.'], function () {
+            Route::get('/', 'UmurController@index')->name('index');
+            Route::post('/store', 'UmurController@store')->name('store');
+            Route::delete('/destroy', 'UmurController@destroy')->name('destroy');
+            Route::get('/edit/{id}', 'UmurController@edit')->name('edit');
+            Route::post('/update', 'UmurController@update')->name('update');
+        });
     });
 });
