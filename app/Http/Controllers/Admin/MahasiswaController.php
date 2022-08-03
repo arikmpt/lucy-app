@@ -19,6 +19,7 @@ use PDF;
 
 class MahasiswaController extends Controller
 {
+
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
@@ -73,12 +74,12 @@ class MahasiswaController extends Controller
         $user = User::all();
  
     	$pdf = PDF::loadview('pages.admin.mahasiswa.print',['user'=>$user]);
-    	return $pdf->download('laporan-mahasiswa.pdf');
+    	return $pdf->stream('laporan-mahasiswa.pdf');
     }
 
     public function filter(Request $request)
     {
-        $user = new User();
+        $user = User::query();
 
         if($request->gender) {
             $user->where('gender', $request->gender);
@@ -94,11 +95,9 @@ class MahasiswaController extends Controller
                 $query->where('cluster', $request->school_cluster);
             });
         }
- 
-    	return view('pages.admin.mahasiswa.pdfview')
-            ->with([
-                'user' => $user->get(),
-            ]);
+
+        $pdf = PDF::loadview('pages.admin.mahasiswa.print',['user'=>$user->get()]);
+    	return $pdf->stream('laporan-mahasiswa.pdf');
     }
 
     public function reportview()
