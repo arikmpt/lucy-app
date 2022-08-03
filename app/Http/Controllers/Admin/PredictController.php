@@ -8,7 +8,9 @@ use App\Models\Predict;
 use App\Models\User;
 use App\Models\SchoolCluster;
 use App\Models\SchoolMajor;
+use App\Models\Umur;
 use PDF;
+use Carbon\Carbon;
 
 class PredictController extends Controller
 {
@@ -51,7 +53,7 @@ class PredictController extends Controller
             }
 
             if($user->school) {
-                $cluster = SchoolCluster::where('districts', $user->school->cluster)->first();
+                $cluster = SchoolCluster::where('name', $user->school->cluster)->first();
     
                 if($cluster) {
                     $asal_sekolah = $cluster->predict_value;
@@ -71,9 +73,14 @@ class PredictController extends Controller
                 }
             }
 
-            
+            $age = Carbon::parse($user->date_of_birth)->diff(Carbon::now())->y;
 
-            $umur = 100;
+            $findUmur = Umur::where('start_range', $age)->orWhere('end_range', $age)->first();
+
+            if($findUmur) {
+                $umur = $findUmur->predict_value;
+            }
+            
 
             $proRate = ($jenis_kelamin + $asal_sekolah + $jurusan_sekolah + $nilai + $umur) / 5;
 
@@ -83,7 +90,6 @@ class PredictController extends Controller
                 $status = 'TIDAK';
             }
             
-
             $predict = new Predict();
             $predict->nim = $user->nim;
             $predict->name = $user->name;
