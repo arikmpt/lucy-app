@@ -21,7 +21,7 @@ class PredictController extends Controller
         $pdaftar = Predict::where('status', 'DAFTAR')->count();
         $count = Predict::get()->count();
 
-        $persentasedaftar = 100 / $count * $pdaftar;
+        $persentasedaftar = number_format((100 / $count * $pdaftar),2);
 
         return view('pages.admin.predict.index')->with([
             'predicts' => $predicts,
@@ -35,7 +35,7 @@ class PredictController extends Controller
         $pdaftar = Predict::where('status', 'DAFTAR')->count();
         $count = Predict::get()->count();
 
-        $persentasedaftar = 100 / $count * $pdaftar;
+        $persentasedaftar = number_format((100 / $count * $pdaftar),2);
  
     	$pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts, 'persentasedaftar' => $persentasedaftar])->setPaper('a4', 'landscape');
     	return $pdf->stream('laporan-prediksi-pendaftaran.pdf');
@@ -48,7 +48,7 @@ class PredictController extends Controller
         $pdaftar = Predict::where('status', 'DAFTAR')->count();
         $count = Predict::get()->count();
 
-        $persentasedaftar = 100 / $count * $pdaftar;
+        $persentasedaftar = number_format((100 / $count * $pdaftar),2);
 
         if($request->status) {
             $predicts->where('status', $request->status);
