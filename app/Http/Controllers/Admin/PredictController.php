@@ -96,11 +96,11 @@ class PredictController extends Controller
                 }
     
                 if($user->school->score <= 7) {
-                    $nilai = 60;
+                    $nilai = 50;
                 }
     
                 if($user->school->score <= 6) {
-                    $nilai = 40;
+                    $nilai = 20;
                 }
             }
 
