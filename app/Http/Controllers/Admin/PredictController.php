@@ -31,8 +31,13 @@ class PredictController extends Controller
     public function print()
     {
         $predicts = Predict::all();
+
+        $pdaftar = Predict::where('status', 'DAFTAR')->count();
+        $count = Predict::get()->count();
+
+        $persentasedaftar = 100 / $count * $pdaftar;
  
-    	$pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts])->setPaper('a4', 'landscape');
+    	$pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts, 'persentasedaftar' => $persentasedaftar])->setPaper('a4', 'landscape');
     	return $pdf->stream('laporan-prediksi-pendaftaran.pdf');
     }
 
@@ -49,7 +54,7 @@ class PredictController extends Controller
             $predicts->where('status', $request->status);
         }
 
-        $pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts->get(), 'persentasedaftar' => $persentasedaftar]);
+        $pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts->get(), 'persentasedaftar' => $persentasedaftar])->setPaper('a4', 'landscape');
     	return $pdf->stream('laporan-prediksi-pendaftaran.pdf');
     }
 
