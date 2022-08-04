@@ -18,9 +18,14 @@ class PredictController extends Controller
     {
         $this->process();
         $predicts = Predict::paginate(50);
+        $pdaftar = Predict::where('status', 'DAFTAR')->count();
+        $count = Predict::get()->count();
+
+        $persentasedaftar = 100 / $count * $pdaftar;
 
         return view('pages.admin.predict.index')->with([
-            'predicts' => $predicts
+            'predicts' => $predicts,
+            'persentasedaftar' => $persentasedaftar,
         ]);
     }
     public function print()
@@ -28,7 +33,24 @@ class PredictController extends Controller
         $predicts = Predict::all();
  
     	$pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts])->setPaper('a4', 'landscape');
-    	return $pdf->download('laporan-prediksi-pendaftaran.pdf');
+    	return $pdf->stream('laporan-prediksi-pendaftaran.pdf');
+    }
+
+    public function filter(Request $request)
+    {
+        $predicts = Predict::query();
+
+        $pdaftar = Predict::where('status', 'DAFTAR')->count();
+        $count = Predict::get()->count();
+
+        $persentasedaftar = 100 / $count * $pdaftar;
+
+        if($request->status) {
+            $predicts->where('status', $request->status);
+        }
+
+        $pdf = PDF::loadview('pages.admin.predict.print',['predicts'=>$predicts->get(), 'persentasedaftar' => $persentasedaftar]);
+    	return $pdf->stream('laporan-prediksi-pendaftaran.pdf');
     }
 
     public function process()
@@ -64,27 +86,30 @@ class PredictController extends Controller
                     $jurusan_sekolah = $major->predict_value;
                 }
     
-                if($user->school->score >= 7) {
+                if($user->school->score >= 8) {
                     $nilai = 100;
                 }
     
+                if($user->school->score <= 7) {
+                    $nilai = 60;
+                }
+    
                 if($user->school->score <= 6) {
-                    $nilai = 50;
+                    $nilai = 40;
                 }
             }
 
             $age = Carbon::parse($user->date_of_birth)->diff(Carbon::now())->y;
 
-            $findUmur = Umur::where('start_range', $age)->orWhere('end_range', $age)->first();
+            $findUmur = Umur::where('start_range', '<=', $age)->orWhere('end_range', '>=', $age)->first();
 
             if($findUmur) {
                 $umur = $findUmur->predict_value;
             }
             
-
             $proRate = ($jenis_kelamin + $asal_sekolah + $jurusan_sekolah + $nilai + $umur) / 5;
 
-            if($proRate >= 65) {
+            if($proRate >= 60) {
                 $status = 'DAFTAR';
             } else {
                 $status = 'TIDAK';
@@ -108,6 +133,5 @@ class PredictController extends Controller
             $predict->unpercentage = 100 - (int)$proRate;
             $predict->save();
         }
-
     }
 }

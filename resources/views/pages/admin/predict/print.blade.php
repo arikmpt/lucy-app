@@ -26,6 +26,7 @@
                 <th>Asal Sekolah</th>
                 <th>Wilayah Asal Sekolah</th>
                 <th>Jurusan Asal Sekolah</th>
+                <th>Persentase Daftar</th>
                 <th>Status</th>
 			</tr>
 		</thead>
@@ -40,15 +41,16 @@
                     <td>{{ $predict->school }}</td>
                     <td>{{ $predict->school_cluster }}</td>
                     <td>{{ $predict->school_major }}</td>
-                    <td>{{ $predict->percentage }}</td>
                     <td>
-                        <p>DAFTAR {{ $predict->percentage }}%</p>    
-                        <p>TIDAK DAFTAR {{ $predict->unpercentage }}%</p>    
+                        <p>{{ $predict->percentage }}%</p>    
                     </td>
+                    <td>{{ $predict->status }}</td>
                 </tr>
             @endforeach
 		</tbody>
 	</table>
- 
+    <div class="mt-3">
+        <h3>Total Daftar : {{ $persentasedaftar }}%</h3>
+    </div>
 </body>
 </html>

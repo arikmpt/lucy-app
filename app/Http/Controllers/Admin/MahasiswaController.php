@@ -13,6 +13,7 @@ use App\Models\UserFather;
 use App\Models\UserMother;
 use App\Models\UserSchool;
 use App\Models\Prodi;
+use App\Models\Predict;
 use DB;
 use Validator;
 use PDF;
@@ -59,6 +60,8 @@ class MahasiswaController extends Controller
             ]
         ])->minifiedAjax()->responsive()->autoWidth(false);
 
+        $this->deletePredict();
+
         $schoolMajors = SchoolMajor::pluck('name','name');
         $schoolClusters = SchoolCluster::pluck('name','name');
          
@@ -69,6 +72,11 @@ class MahasiswaController extends Controller
             'schoolClusters' => $schoolClusters,
         ]);
     }
+    public function deletePredict()
+    {
+        $delete_predict = Predict::query()->truncate();
+    }
+
     public function PDFPrint()
     {
         $user = User::all();
@@ -331,6 +339,7 @@ class MahasiswaController extends Controller
             return response()->json(['success' => false, 'message' => 'Data failed to delete'], 400)->header('Content-Type', 'application/json');
 
         } catch (\Throwable $th) {
+            dd($th);
             return response()->json(['success' => false, 'message' => 'Fatal Error'], 400)->header('Content-Type', 'application/json');
         }
             // return $destroy ? response()->json(['success' => true, 'message' => 'Data deleted successfully'], 200)->header('Content-Type', 'application/json') : 

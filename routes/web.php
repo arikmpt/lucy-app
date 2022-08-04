@@ -120,6 +120,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::group(['prefix' => 'predict', 'as' => 'predict.'], function () {
             Route::get('/', 'PredictController@index')->name('index');
             Route::get('/print', 'PredictController@print')->name('print');
+            Route::post('/filter', 'PredictController@filter')->name('filter');
         });
 
         Route::group(['prefix' => 'umur', 'as' => 'umur.'], function () {
