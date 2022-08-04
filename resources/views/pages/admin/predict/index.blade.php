@@ -52,7 +52,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>No Hp</th>
-                                <th>Email</th>
+                                {{-- <th>Email</th> --}}
                                 <th>Tempat Tanggal Lahir</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Tujuan Jurusan</th>
@@ -68,7 +68,7 @@
                                 <tr>
                                     <td>{{ $predict->name }}</td>
                                     <td>{{ $predict->phone }}</td>
-                                    <td>{{ $predict->email }}</td>
+                                    {{-- <td>{{ $predict->email }}</td> --}}
                                     <td>{{ $predict->place_of_birth }} {{ $predict->date_of_birth }} </td>
                                     <td>{{ $predict->gender }}</td>
                                     <td>{{ $predict->major }}</td>
